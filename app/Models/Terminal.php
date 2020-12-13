@@ -17,7 +17,7 @@ class Terminal extends Model
         'ip_address', 'description','ioflg','approved',
         'serialno','pushver','lastactivity','usercount',
         'fingerCount','transactions','fpVersion',
-        'faceVersion','faceReg','faceCount'
+        'faceVersion','faceReg','faceCount','stamp','opstamp'
     ];
     protected $attributes = [
         'approved' => false,

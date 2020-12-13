@@ -19,16 +19,19 @@ class CreateTerminalsTable extends Migration
             $table->string('ioflg');
             $table->boolean('approved');
             $table->string('description');
-            $table->string('serialno')->nullable();;
-            $table->string('pushver')->nullable();;
-            $table->datetime('lastactivity')->nullable();;
-            $table->string('usercount')->nullable();;
-            $table->string('fingerCount')->nullable();;
-            $table->string('transactions')->nullable();;
-            $table->string('fpVersion')->nullable();;
-            $table->string('faceVersion')->nullable();;
-            $table->string('faceReg')->nullable();;
-            $table->string('faceCount')->nullable();;
+            $table->string('serialno')->nullable();
+            $table->string('pushver')->nullable();
+            $table->datetime('lastactivity')->nullable();
+            $table->string('usercount')->nullable();
+            $table->string('fingerCount')->nullable();
+            $table->string('transactions')->nullable();
+            $table->string('fpVersion')->nullable();
+            $table->string('faceVersion')->nullable();
+            $table->string('faceReg')->nullable();
+            $table->string('faceCount')->nullable();
+            $table->string('stamp')->nullable();
+            $table->string('opstamp')->nullable();
+
             $table->timestamps();
         });
     }

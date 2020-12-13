@@ -13,7 +13,7 @@ class Terminals extends Component
 
     use WithPagination;
 
-    public $terminals, $ip_address, $description,$ioflg,$approved,$lastactivity;
+    public $terminals, $ip_address, $description,$ioflg,$approved,$lastactivity,$stamp,$opstamp,$serialno;
     public $isOpen = 0;
 
     public function render()
@@ -105,13 +105,13 @@ class Terminals extends Component
        $pushver =  $ary[0];
 
 
-
        /**
         * 'serialno'
         *
         * 'pushver','lastactivity','usercount',
         * 'fingerCount','transactions','fpVersion',
         * 'faceVersion','faceReg','faceCount'
+        * 'stamp','opstamp'
        */
        if(isset($machine))
        {
@@ -124,10 +124,11 @@ class Terminals extends Component
                   'usercount' => 1,
                   'fpVersion'  => 1,
                   'fingerCount' => 1,
-
                   'faceVersion' => 1,
-                  'faceCount' => 1
+                  'faceCount' => 1,
                   'transactions' => 1,
+                  'stamp'=>'',
+                  'opstamp'=>'',
                 ]);
        }else{
          //new machine tries to connect
