@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\requestfromterminal;
 use App\Http\Livewire\Terminals;
+use App\Http\Controllers\iClockController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,3 +24,17 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::get('terminal', Terminals::class)->middleware('auth');
+
+
+
+
+
+Route::middleware([requestfromterminal::class])->group(function(){
+
+
+  // very first request from terminal when connected to network
+   Route::get('/iclock/cdata', [iClockController::class,'terminalconnect']);
+
+
+
+});
