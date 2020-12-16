@@ -28,11 +28,7 @@
         <th class="px-4 py-2">Users</th>
         <th class="px-4 py-2">Faces</th>
         <th class="px-4 py-2">Fingers</th>
-        <th class="px-4 py-2">Device Name</th>
-        <th class="px-4 py-2">MAC</th>
-        <th class="px-4 py-2">Plat Form</th>
-        <th class="px-4 py-2">FWVer</th>
-        <th class="px-4 py-2">PushVer</th>
+
 
         <th class="px-4 py-2">Action</th>
         </tr>
@@ -40,19 +36,26 @@
         <tbody>
         @foreach($machines as $terminal)
           <tr>
-          <td class="border px-4 py-2"><div class="text-xs flex space-x-1 justify-around">{{ $terminal->ip_address }}</div></td>
-          <td class="border px-4 py-2"><div class="text-xs flex space-x-1 justify-around">{{ $terminal->description }}</div></td>
-          <td class="border px-4 py-2"><div class="text-xs flex space-x-1 justify-around">{{ $terminal->ioflg }}</div></td>
-          <td class="border px-4 py-2"><div class="text-xs flex space-x-1 justify-around">{{ $terminal->approved }}</div></td>
-          <td class="border px-4 py-2"><div class="text-xs flex space-x-1 justify-around">{{ $terminal->lastactivity }}</div></td>
-          <td class="border px-4 py-2"><div class="text-xs flex space-x-1 justify-around">{{ $terminal->UserCount }}</div></td>
-          <td class="border px-4 py-2"><div class="text-xs flex space-x-1 justify-around">{{ $terminal->FaceCount }}</div></td>
-          <td class="border px-4 py-2"><div class="text-xs flex space-x-1 justify-around">{{ $terminal->FPCount }}</div></td>
-          <td class="border px-4 py-2"><div class="text-xs flex space-x-1 justify-around">{{ $terminal->DeviceName }}</div></td>
-          <td class="border px-4 py-2"><div class="text-xs flex space-x-1 justify-around">{{ $terminal->MAC }}</div></td>
-          <td class="border px-4 py-2"><div class="text-xs flex space-x-1 justify-around">{{ $terminal->Platform }}</div></td>
-          <td class="border px-4 py-2"><div class="text-xs flex space-x-1 justify-around">{{ $terminal->FWVersion }}</div></td>
-          <td class="border px-4 py-2"><div class="text-xs flex space-x-1 justify-around">{{ $terminal->PushVersion }}</div></td>
+          <td class="border px-4 py-2 "><div class="text-xs flex space-x-1 justify-around">{{ $terminal->ip_address }}</div></td>
+          <td class="border px-4 py-2 "  ><div class="text-xs flex space-x-1 justify-around">{{ $terminal->description }}</div></td>
+          <td class="border px-4 py-2 " ><div class="text-xs flex space-x-1 justify-around">{{ $terminal->ioflg }}</div></td>
+          <td class="border px-4 py-2 " ><div class="text-xs flex space-x-1 justify-around">{{ $terminal->approved }}</div></td>
+          <td class="border px-4 py-2 ">
+            <div class="text-xs flex space-x-1 justify-around">
+              <svg height="10" width="10">
+                <circle cx="5" cy="5" r="4" stroke="black" stroke-width="1" fill="red" />
+              </svg>
+
+          {{ $terminal->lastactivity }}
+
+
+          </div></td>
+
+
+          <td class="border px-4 py-2 "><div class="text-xs flex space-x-1 justify-around">{{ $terminal->UserCount }}</div></td>
+          <td class="border px-4 py-2 "><div class="text-xs flex space-x-1 justify-around">{{ $terminal->FaceCount }}</div></td>
+          <td class="border px-4 py-2 "><div class="text-xs flex space-x-1 justify-around">{{ $terminal->FPCount }}</div></td>
+
           <td class="border px-4 py-2">
             <div class="flex space-x-1 justify-around">
                 <button wire:click="edit('{{ $terminal->ip_address }}')" class="p-1 text-red-600 hover:bg-red-600 hover:text-white rounded">
