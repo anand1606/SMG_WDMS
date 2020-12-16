@@ -26,15 +26,16 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::get('terminal', Terminals::class)->middleware('auth');
 
 
+Route::get('/iclock/cdata', [iClockController::class,'CDataGET']);
+Route::post('/iclock/cdata', [iClockController::class,'CDataPOST']);
 
+/*
+ Route::get('/iclock/getrequest', [iClockController::class,'GetRequest']);
+ Route::post('/iclock/getrequest', [iClockController::class,'GetRequest']);
 
+ Route::get('/iclock/push', [iClockController::class,'Push']);
+ Route::post('/iclock/push', [iClockController::class,'Push']);
 
-Route::middleware([requestfromterminal::class])->group(function(){
-
-
-  // very first request from terminal when connected to network
-   Route::get('/iclock/cdata', [iClockController::class,'terminalconnect']);
-
-
-
-});
+ Route::get('/iclock/devicecmd', [iClockController::class,'DeviceCmd']);
+ Route::post('/iclock/devicecmd', [iClockController::class,'DeviceCmd']);
+*/

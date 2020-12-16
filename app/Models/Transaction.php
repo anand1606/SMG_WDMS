@@ -9,8 +9,16 @@ class Transaction extends Model
 {
     use HasFactory;
 
+
+    protected $fillable = [
+      'empunqid','punchdate','ioflg','ip_address','verifymode','exported',
+
+    ];
+
     public function terminal()
     {
         return $this->belongsTo(Terminal::class,'ip_address');
+
+
     }
 }

@@ -94,44 +94,5 @@ class Terminals extends Component
         session()->flash('message', 'Terminal Deleted Successfully.');
     }
 
-    public function updateTerminalState($ip,$sn,$info)
-    {
 
-       $machine = Terminal::where('ip_address', $ip)->first();
-
-       #'SN=BIL2182760067&INFO=Ver 8.0.4.2-5856-01,1,0,11,172.16.12.191,10,7,12,0,111'
-
-       $ary = explode(',',$info);
-       $pushver =  $ary[0];
-
-
-       /**
-        * 'serialno'
-        *
-        * 'pushver','lastactivity','usercount',
-        * 'fingerCount','transactions','fpVersion',
-        * 'faceVersion','faceReg','faceCount'
-        * 'stamp','opstamp'
-       */
-       if(isset($machine))
-       {
-         $affected = DB::table('terminals')
-             ->where('ip_address', $ip)
-             ->update([
-                  'serialno' => $sn,
-                  'pushver' => $pushver,
-                  'lastactivity' => Carbon::now(),
-                  'usercount' => 1,
-                  'fpVersion'  => 1,
-                  'fingerCount' => 1,
-                  'faceVersion' => 1,
-                  'faceCount' => 1,
-                  'transactions' => 1,
-                  'stamp'=>'',
-                  'opstamp'=>'',
-                ]);
-       }else{
-         //new machine tries to connect
-       }
-    }
 }

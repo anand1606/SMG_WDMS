@@ -15,9 +15,10 @@ class Terminal extends Model
 
     protected $fillable = [
         'ip_address', 'description','ioflg','approved',
-        'serialno','pushver','lastactivity','usercount',
-        'fingerCount','transactions','fpVersion',
-        'faceVersion','faceReg','faceCount','stamp','opstamp'
+        'serialno','PushVersion','lastactivity',
+        'UserCount','FPCount','FaceCount',
+        'DeviceName','Platform','FWVersion','PushVersion','MAC'
+        ,'stamp','opstamp'
     ];
     protected $attributes = [
         'approved' => false,

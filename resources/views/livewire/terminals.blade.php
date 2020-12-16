@@ -20,25 +20,49 @@
       <table class="table-fixed w-full">
         <thead>
         <tr class="bg-gray-100">
-        <th class="px-4 py-2">IP Address.</th>
+        <th class="px-4 py-2">IP Address</th>
         <th class="px-4 py-2">Machine Desc</th>
         <th class="px-4 py-2">IOFLG</th>
-        <th class="px-4 py-2">IsApproved</th>
+        <th class="px-4 py-2">Is Approved</th>
         <th class="px-4 py-2">Status</th>
+        <th class="px-4 py-2">Users</th>
+        <th class="px-4 py-2">Faces</th>
+        <th class="px-4 py-2">Fingers</th>
+        <th class="px-4 py-2">Device Name</th>
+        <th class="px-4 py-2">MAC</th>
+        <th class="px-4 py-2">Plat Form</th>
+        <th class="px-4 py-2">FWVer</th>
+        <th class="px-4 py-2">PushVer</th>
+
         <th class="px-4 py-2">Action</th>
         </tr>
         </thead>
         <tbody>
         @foreach($machines as $terminal)
           <tr>
-          <td class="border px-4 py-2">{{ $terminal->ip_address }}</td>
-          <td class="border px-4 py-2">{{ $terminal->description }}</td>
-          <td class="border px-4 py-2">{{ $terminal->ioflg }}</td>
-          <td class="border px-4 py-2">{{ $terminal->approved }}</td>
-          <td class="border px-4 py-2">{{ $terminal->lastactivity }}</td>
+          <td class="border px-4 py-2"><div class="text-xs flex space-x-1 justify-around">{{ $terminal->ip_address }}</div></td>
+          <td class="border px-4 py-2"><div class="text-xs flex space-x-1 justify-around">{{ $terminal->description }}</div></td>
+          <td class="border px-4 py-2"><div class="text-xs flex space-x-1 justify-around">{{ $terminal->ioflg }}</div></td>
+          <td class="border px-4 py-2"><div class="text-xs flex space-x-1 justify-around">{{ $terminal->approved }}</div></td>
+          <td class="border px-4 py-2"><div class="text-xs flex space-x-1 justify-around">{{ $terminal->lastactivity }}</div></td>
+          <td class="border px-4 py-2"><div class="text-xs flex space-x-1 justify-around">{{ $terminal->UserCount }}</div></td>
+          <td class="border px-4 py-2"><div class="text-xs flex space-x-1 justify-around">{{ $terminal->FaceCount }}</div></td>
+          <td class="border px-4 py-2"><div class="text-xs flex space-x-1 justify-around">{{ $terminal->FPCount }}</div></td>
+          <td class="border px-4 py-2"><div class="text-xs flex space-x-1 justify-around">{{ $terminal->DeviceName }}</div></td>
+          <td class="border px-4 py-2"><div class="text-xs flex space-x-1 justify-around">{{ $terminal->MAC }}</div></td>
+          <td class="border px-4 py-2"><div class="text-xs flex space-x-1 justify-around">{{ $terminal->Platform }}</div></td>
+          <td class="border px-4 py-2"><div class="text-xs flex space-x-1 justify-around">{{ $terminal->FWVersion }}</div></td>
+          <td class="border px-4 py-2"><div class="text-xs flex space-x-1 justify-around">{{ $terminal->PushVersion }}</div></td>
           <td class="border px-4 py-2">
-          <button wire:click="edit('{{ $terminal->ip_address }}')" class="bg-blue-500 hover:bg-blue-700 text-white  px-2 rounded">Edit</button>
-          <button wire:click="delete('{{ $terminal->ip_address }}')" class="bg-red-500 hover:bg-red-700 text-white  px-2  rounded">Delete</button>
+            <div class="flex space-x-1 justify-around">
+                <button wire:click="edit('{{ $terminal->ip_address }}')" class="p-1 text-red-600 hover:bg-red-600 hover:text-white rounded">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path></svg>
+                </button>
+
+                <button wire:click="delete('{{ $terminal->ip_address }}')" class="p-1 text-red-600 hover:bg-red-600 hover:text-white rounded">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                </button>
+            </div>
           </td>
           </tr>
         @endforeach
