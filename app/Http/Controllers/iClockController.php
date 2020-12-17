@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Arr;
-
+use App\Jobs\AttdLoginsertJob;
 use Illuminate\Support\Str;
 
 class iClockController extends Controller
@@ -344,7 +344,9 @@ class iClockController extends Controller
         else if($tablename == 'ATTLOG')
         {
           Log::debug('Get Attendance Log');
-          $result = $this->savetransaction($request);
+          //$result = $this->savetransaction($request);
+          AttdLoginsertJob::dispatch($request->ip(),$request->getContent());
+
           return response('OK' . "\n", 200)->header('Content-Type', 'text/plain');
         }
         else if($tablename == 'options')
