@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Arr;
 use App\Jobs\AttdLoginsertJob;
 use Illuminate\Support\Str;
+use HttpResponse;
+use Carbon\Carbon;
 
 class iClockController extends Controller
 {
@@ -75,7 +77,7 @@ class iClockController extends Controller
       if(isset($machine))
       {
         $affected = DB::update(
-          'update terminals set serialno = ? , PushVersion = ? where ip_address = ?',
+          'update terminals set serialno = ? , PushVersion = ?, lastactivity = NOW() where ip_address = ?',
             [$sn,$pushver,$ip]
           );
       }
@@ -140,7 +142,7 @@ class iClockController extends Controller
           if($ary[0])
           $collection->put(  $ary[0] ,  $ary[1] );
 
-          Log::debug($collection->dump());
+          //Log::debug($collection->dump());
         }
       }
 
@@ -172,12 +174,12 @@ class iClockController extends Controller
     public function GetRequest(Request $request)
     {
 
-      Log::debug($request->method() . ' ' . $request->fullUrl());
-      if($request->getContent())
-          Log::debug($request->getContent());
+    //Log::debug($request->method() . ' ' . $request->fullUrl());
+    //  if($request->getContent())
+    //      Log::debug($request->getContent());
 
 
-
+      //    $dt = Carbon::now();
 
 
       if($request->method() == 'POST')
@@ -185,12 +187,21 @@ class iClockController extends Controller
 
       }
 
-      if($request->method() == 'GET' && !$request->has('INFO'))
+      if($request->method() == 'GET' && $request->has('SN'))
       {
-          return  response('C:122:INFO',200)->header('Content-Type', 'text/plain');
+         //Log::debug('bhos');
+         return  response('C:124:INFO',200)->header('Content-Type', 'text/plain');
+
       }
 
-      return response('OK' . "\n", 200)->header('Content-Type', 'text/plain');
+      return response('OK',200)
+          ->withHeaders([
+              'Content-Type' => 'text/plain',
+              'Connection' => 'close',
+              'Content-Length' => 2,
+          ]);
+
+      //return response('OK' . "\n", 200)->header('Content-Type', 'text/plain');
 
 
     }
@@ -288,14 +299,7 @@ class iClockController extends Controller
             //PushVersion
             //Platform ,FaceCount,UserCount,DeviceName,MAC,FPCount
             $result = $this->SaveMachineInfo($request->getContent());
-            if($result)
-            {
-                Log::debug('device info saved');
-            }
-            else {
-                Log::debug('device info not saved');
-            }
-
+            
             return response('OK' . "\n", 200)->header('Content-Type', 'text/plain');
         }
 
@@ -339,7 +343,7 @@ class iClockController extends Controller
         {
             Log::debug('Get Operation Log');
 
-            return response('OK:1' . "\n", 200)->header('Content-Type', 'text/plain');
+            return response('OK' . "\n", 200)->header('Content-Type', 'text/plain');
         }
         else if($tablename == 'ATTLOG')
         {
@@ -373,6 +377,11 @@ class iClockController extends Controller
     public function CDataGET(Request $request)
     {
 
+      Log::debug($request->method() . ' ' . $request->fullUrl());
+      if($request->getContent())
+          Log::debug($request->getContent());
+
+
       if($request->method() == 'GET')
       {
 
@@ -384,7 +393,13 @@ class iClockController extends Controller
         {
 
            $response = $this->SetMachineConfig($request);
-           return response($response, 200)->header('Content-Type', 'text/plain');
+           return response($response, 200)
+           ->withHeaders([
+               'Content-Type' => 'text/plain',
+               'Connection' => 'close',
+               'Content-Length' => strlen($response),
+           ]);
+
 
         }
 

@@ -46,7 +46,7 @@
                 <circle cx="5" cy="5" r="4" stroke="black" stroke-width="1" fill="red" />
               </svg>
 
-          {{ $terminal->lastactivity }}
+              {{ $terminal->lastactivity }}
 
 
           </div></td>
