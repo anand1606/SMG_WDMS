@@ -42,12 +42,16 @@
           <td class="border px-4 py-2 " ><div class="text-xs flex space-x-1 justify-around">{{ $terminal->approved }}</div></td>
           <td class="border px-4 py-2 ">
             <div class="text-xs flex space-x-1 justify-around">
-              <svg height="10" width="10">
-                <circle cx="5" cy="5" r="4" stroke="black" stroke-width="1" fill="red" />
-              </svg>
 
-              {{ $terminal->lastactivity }}
-
+              @if( $terminal->Status == 0)
+                <svg height="10" width="10">
+                  <circle cx="5" cy="5" r="5" stroke="black" stroke-width="1" fill="red" />
+                </svg>
+              @else
+                <svg height="10" width="10">
+                  <circle cx="5" cy="5" r="5" stroke="black" stroke-width="1" fill="green" />
+                </svg>
+              @endif
 
           </div></td>
 

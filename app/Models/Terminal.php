@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,5 +27,20 @@ class Terminal extends Model
     public function transactions()
     {
         return $this->hasMany(Transaction::class,'ip_address');
+    }
+
+    public function getStatusAttribute()
+    {
+
+      if(!isset($this->lastactivity))
+        return 0;
+
+      $current = Carbon::now();
+      $act = Carbon::parse($this->lastactivity);
+
+      if($act->diffInMinutes($current) < 5)
+        return 1;
+      else if ($act->diffInMinutes($current) > 5)
+        return 0;
     }
 }
