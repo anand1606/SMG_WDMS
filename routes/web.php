@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\requestfromterminal;
 use App\Http\Livewire\Terminals;
+use App\Http\Livewire\Transactions;
+
 use App\Http\Controllers\iClockController;
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +26,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::get('terminal', Terminals::class)->middleware('auth');
-
+Route::get('transactions', Transactions::class)->middleware('auth');
 
 Route::get('/iclock/cdata', [iClockController::class,'CDataGET']);
 Route::post('/iclock/cdata', [iClockController::class,'CDataPOST']);
