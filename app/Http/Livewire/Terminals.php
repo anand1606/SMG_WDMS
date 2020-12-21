@@ -16,12 +16,21 @@ class Terminals extends Component
     public $terminals, $ip_address, $description,$ioflg,$approved,$lastactivity,$stamp,$opstamp,$serialno;
     public $isOpen = 0;
 
+    public $perPage = 10;
+    public $search = '';
+    public $orderBy = 'ip_address';
+    public $orderAsc = true;
+
+
+
     public function render()
     {
         $this->terminals = Terminal::all();
 
         return view('livewire.terminals', [
-            'machines' => Terminal::whereNotNull('ip_address')->paginate(10),
+            'machines' => Terminal::search($this->search)
+                 ->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
+                 ->simplePaginate($this->perPage),
         ]);
 
         #return view('livewire.terminals');

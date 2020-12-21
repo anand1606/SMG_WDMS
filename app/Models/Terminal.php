@@ -43,4 +43,12 @@ class Terminal extends Model
       else if ($act->diffInMinutes($current) > 5)
         return 0;
     }
+
+    public static function search($search)
+    {
+        return empty($search) ? static::query()
+            : static::query()->where('ip_address', 'like', '%'.$search.'%')
+                ->orWhere('ioflg', 'like', '%'.$search.'%')
+                ->orWhere('description', 'like', '%'.$search.'%');
+    }
 }
