@@ -299,7 +299,7 @@ class iClockController extends Controller
             //PushVersion
             //Platform ,FaceCount,UserCount,DeviceName,MAC,FPCount
             $result = $this->SaveMachineInfo($request->getContent());
-            
+
             return response('OK' . "\n", 200)->header('Content-Type', 'text/plain');
         }
 
@@ -342,8 +342,16 @@ class iClockController extends Controller
         if($tablename == 'OPERLOG')
         {
             Log::debug('Get Operation Log');
+            //count nos of lines in body and returen response 'OK:'NOS OF LINE
+            $lines = explode(PHP_EOL, $request->GetContent());
+            $resonse = 'OK:' . $lines.count();
 
-            return response('OK' . "\n", 200)->header('Content-Type', 'text/plain');
+            return response($response . "\n", 200)
+            ->withHeaders([
+                'Content-Type' => 'text/plain',
+                'Connection' => 'close',
+                'Content-Length' => strlen($response),
+            ]);
         }
         else if($tablename == 'ATTLOG')
         {
