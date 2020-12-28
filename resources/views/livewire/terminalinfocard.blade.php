@@ -1,6 +1,10 @@
-<div wire:poll.10s>
+<x-slot name="header">
+
+</x-slot>
+<div  wire:poll.10s>
+  
   <h2 class="text-xl text-gray-900 font-medium leading-8">WDMS</h2>
-  <div class="grid gap-3 grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4">
+  <div class="grid gap-3 grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4" >
     <div class="max-w-xs">
           <div class="bg-white shadow-xl rounded-lg py-3">
               <div class="photo-wrapper p-2">
