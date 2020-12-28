@@ -17,6 +17,20 @@ class iClockController extends Controller
 {
     //
 
+    public function updateTerminalState($terminal_sn)
+    {
+      $machine = Terminal::where('serialno', $terminal_sn)->where('approved',true)->first();
+      if(isset($machine))
+      {
+          $ip = $machine->ip_address;
+          $dt = Carbon::now();
+
+          Terminal::where('ip_address', $ip)->update(['lastactivity' => $dt]);
+          return 1;
+      }
+      return 0;
+    }
+
     public function savetransaction(Request $request)
     {
         $lines = explode(PHP_EOL, $request->GetContent());
@@ -73,12 +87,13 @@ class iClockController extends Controller
       $ip = $request->ip();
       $sn = $request->query('SN');
       $pushver = $request->query('pushver');
+      $dt = Carbon::now();
       $machine = Terminal::where('ip_address', $ip)->where('approved',true)->first();
       if(isset($machine))
       {
         $affected = DB::update(
-          'update terminals set serialno = ? , PushVersion = ?, lastactivity = NOW() where ip_address = ?',
-            [$sn,$pushver,$ip]
+          'update terminals set serialno = ? , PushVersion = ?, lastactivity =? where ip_address = ?',
+            [$sn,$pushver,$dt,$ip]
           );
       }
 
@@ -174,12 +189,7 @@ class iClockController extends Controller
     public function GetRequest(Request $request)
     {
 
-    //Log::debug($request->method() . ' ' . $request->fullUrl());
-    //  if($request->getContent())
-    //      Log::debug($request->getContent());
-
-
-      //    $dt = Carbon::now();
+      Log::debug($request->method() . ' ' . $request->fullUrl());
 
 
       if($request->method() == 'POST')
@@ -328,7 +338,7 @@ class iClockController extends Controller
 
       Log::debug($request->method() . ' ' . $request->fullUrl());
       if($request->getContent())
-          Log::debug($request->getContent());
+          //Log::debug($request->getContent());
 
 
       if($request->method() == 'POST' && $request->has(['SN', 'table']) )
@@ -344,8 +354,9 @@ class iClockController extends Controller
             Log::debug('Get Operation Log');
             //count nos of lines in body and returen response 'OK:'NOS OF LINE
             $lines = explode(PHP_EOL, $request->GetContent());
-            $resonse = 'OK:' . $lines.count();
-
+            $response = 'OK:' . strval(count($lines));
+            $sn = $request->query('SN');
+			      $q = $this->updateTerminalState($sn);
             return response($response . "\n", 200)
             ->withHeaders([
                 'Content-Type' => 'text/plain',
@@ -399,6 +410,9 @@ class iClockController extends Controller
         // http://localhost:8000/iclock/cdata?sn=zae&options=all&pushver=1.23.0
         if($request->has(['SN', 'options' , 'pushver']) && $request->query('options') == 'all')
         {
+
+          $sn = $request->query('SN');
+          $q = $this->updateTerminalState($sn);
 
            $response = $this->SetMachineConfig($request);
            return response($response, 200)

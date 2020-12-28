@@ -29,18 +29,19 @@ class Terminalinfocard extends Component
 
           $this->NonActiveList = $this->Terminals->where('Status' , 0);
         */
+       $this->Terminals = Terminal::all();
         return view('livewire.terminalinfocard',
 
           [
-            'TotalTerminals' => $this->GetAllTerminal(),
+            'TotalTerminals' => $this->Terminals->Count(),
             'ActiveTerminals' => $this->Terminals->where('Status', 1)->count(),
             'NonActiveTerminals' => $this->Terminals->where('Status' , 0)->count(),
             'TotalInTerminals' => $this->Terminals->where('ioflg' ,'I')->count(),
-            'ActiveInTerminals' => $this->Terminals->where('ioflg' , 'I')->where('status',1)->Count(),
-            'NonActiveInTerminals' => $this->Terminals->where('ioflg' , 'I')->where('status',0)->Count(),
+            'ActiveInTerminals' => $this->Terminals->where('ioflg' , 'I')->where('Status',1)->Count(),
+            'NonActiveInTerminals' => $this->Terminals->where('ioflg' , 'I')->where('Status',0)->Count(),
             'TotalOutTerminals' => $this->Terminals->where('ioflg' ,'O')->count(),
             'ActiveOutTerminals' => $this->Terminals->where('ioflg' ,'O')->count(),
-            'NonActiveOutTerminals' =>  $this->Terminals->where('ioflg' , 'O')->where('status',0)->Count(),
+            'NonActiveOutTerminals' =>  $this->Terminals->where('ioflg' , 'O')->where('Status',0)->Count(),
             'NonActiveList' => $this->Terminals->where('Status' , 0),
           ]
 

@@ -4,7 +4,7 @@ namespace App\Models;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\Log;
 class Terminal extends Model
 {
     use HasFactory;
@@ -35,13 +35,25 @@ class Terminal extends Model
       if(!isset($this->lastactivity))
         return 0;
 
-      $current = Carbon::now();
-      $act = Carbon::parse($this->lastactivity);
 
-      if($act->diffInMinutes($current) < 5)
+      $current = Carbon::now();
+      $current->setTimezone('Asia/Kolkata');
+
+      $act = Carbon::parse($this->lastactivity);
+      $act->setTimezone('Asia/Kolkata');
+
+      //Log::debug($act);
+      //Log::debug($current->diffInMinutes($act));
+      //Log::debug($current);
+      //Log::debug($act);
+
+      if($current->diffInMinutes($act) < 15)
+      {
+
         return 1;
-      else if ($act->diffInMinutes($current) > 5)
-        return 0;
+      }
+      else if ($current->diffInMinutes($act) > 15)
+        { return 0; }
     }
 
     public static function search($search)
