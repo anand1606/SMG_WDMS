@@ -13,7 +13,7 @@
                 <option value="empunqid">EmpCode</option>
                 <option value="punchdate">PunchTime</option>
                 <option value="ip_address">Terminal</option>
-                <option value="veryfymode">Veryfication Mode</option>
+                <option value="verifymode">Veryfication Mode</option>
                 <option value="ioflg">In/Out</option>
                 <option value="exported">Exported</option>
             </select>
